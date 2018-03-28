@@ -1,37 +1,36 @@
 /**
  * @providesModule ParallaxImage
  */
-'use strict';
+"use strict";
 
-var isEqual = require('lodash/lang/isEqual');
-var React = require('react');
-var PropTypes = require('prop-types');
-var createReactClass = require('create-react-class');
-React.createClass = createReactClass
-React.PropTypes = PropTypes
+var isEqual = require("lodash/lang/isEqual");
+var React = require("react");
+var PropTypes = require("prop-types");
+var createReactClass = require("create-react-class");
+
 var {
   View,
   Image,
   Animated,
   StyleSheet,
   Dimensions,
-  TouchableHighlight,
-} = require('react-native');
+  TouchableHighlight
+} = require("react-native");
 
-var WINDOW_HEIGHT = Dimensions.get('window').height;
+var WINDOW_HEIGHT = Dimensions.get("window").height;
 
-var ParallaxImage = React.createClass({
+var ParallaxImage = createReactClass({
   propTypes: {
-//     onPress:        React.PropTypes.func,
-//     scrollY:        React.PropTypes.object,
-//     parallaxFactor: React.PropTypes.number,
-//     imageStyle:     Image.propTypes.style,
-//     overlayStyle:   View.propTypes.style,
+    //     onPress:        React.PropTypes.func,
+    //     scrollY:        React.PropTypes.object,
+    //     parallaxFactor: React.PropTypes.number,
+    //     imageStyle:     Image.propTypes.style,
+    //     overlayStyle:   View.propTypes.style,
   },
 
   getDefaultProps: function() {
     return {
-      parallaxFactor: 0.2,
+      parallaxFactor: 0.2
     };
   },
 
@@ -40,7 +39,7 @@ var ParallaxImage = React.createClass({
     return {
       offset: 0,
       height: 0,
-      width:  0,
+      width: 0
     };
   },
 
@@ -50,13 +49,13 @@ var ParallaxImage = React.createClass({
 
   // Measure again since onLayout event won't pass the offset
   handleLayout: function(event) {
-    if(this.isLayoutStale) {
+    if (this.isLayoutStale) {
       (this._touchable || this._container).measure(this.handleMeasure);
     }
   },
 
   componentWillReceiveProps: function(nextProps) {
-    if(!isEqual(nextProps, this.props)) {
+    if (!isEqual(nextProps, this.props)) {
       this.isLayoutStale = true;
     }
   },
@@ -66,7 +65,7 @@ var ParallaxImage = React.createClass({
     this.setState({
       offset: py,
       height,
-      width,
+      width
     });
   },
 
@@ -86,26 +85,24 @@ var ParallaxImage = React.createClass({
 
     var parallaxStyle = {
       height: height + parallaxPadding * 2,
-      width: width,
+      width: width
     };
-    if(scrollY) {
+    if (scrollY) {
       parallaxStyle.transform = [
         {
-          translateY:   scrollY.interpolate({
-            inputRange:   [offset - height, offset + WINDOW_HEIGHT + height],
-            outputRange:  [-parallaxPadding, parallaxPadding]
-          }),
-//           extrapolate:  'clamp',
-        },
+          translateY: scrollY.interpolate({
+            inputRange: [offset - height, offset + WINDOW_HEIGHT + height],
+            outputRange: [-parallaxPadding, parallaxPadding]
+          })
+          //           extrapolate:  'clamp',
+        }
       ];
     } else {
-      parallaxStyle.transform = [
-        { translateY: -parallaxPadding },
-      ];
+      parallaxStyle.transform = [{ translateY: -parallaxPadding }];
     }
     var content = (
       <View
-        ref={component => this._container = component}
+        ref={component => (this._container = component)}
         style={[style, styles.container]}
         onLayout={this.handleLayout}
       >
@@ -114,16 +111,17 @@ var ParallaxImage = React.createClass({
           style={[imageStyle, parallaxStyle]}
           pointerEvents="none"
         />
-        <View style={[styles.overlay, overlayStyle]}>
-          {children}
-        </View>
+        <View style={[styles.overlay, overlayStyle]}>{children}</View>
       </View>
     );
     // Since we can't allow nested Parallax.Images, we supply this shorthand to wrap a touchable
     // around the element
-    if(onPress) {
+    if (onPress) {
       return (
-        <TouchableHighlight ref={component => this._touchable = component} onPress={onPress}>
+        <TouchableHighlight
+          ref={component => (this._touchable = component)}
+          onPress={onPress}
+        >
           {content}
         </TouchableHighlight>
       );
@@ -134,17 +132,17 @@ var ParallaxImage = React.createClass({
 
 var styles = StyleSheet.create({
   container: {
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative"
   },
   overlay: {
     flex: 1,
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0,
-  },
+    bottom: 0
+  }
 });
 
 module.exports = ParallaxImage;
