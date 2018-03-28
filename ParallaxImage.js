@@ -79,6 +79,7 @@ var ParallaxImage = createReactClass({
       imageStyle,
       overlayStyle,
       children,
+      ImageComponent = Animated.Image,
       ...props
     } = this.props;
     var parallaxPadding = height * parallaxFactor;
@@ -106,7 +107,7 @@ var ParallaxImage = createReactClass({
         style={[style, styles.container]}
         onLayout={this.handleLayout}
       >
-        <Animated.Image
+        <ImageComponent
           {...props}
           style={[imageStyle, parallaxStyle]}
           pointerEvents="none"
