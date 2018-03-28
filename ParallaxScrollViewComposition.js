@@ -33,7 +33,7 @@ var applyPropsToParallaxImages = function(children, props) {
 
 var ParallaxScrollViewComposition = React.createClass({
   propTypes: {
-    scrollViewComponent: React.PropTypes.func,
+//     scrollViewComponent: React.PropTypes.func,
   },
 
   setNativeProps: function(nativeProps) {
