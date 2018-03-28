@@ -5,6 +5,10 @@
 
 var isArray = require('lodash/lang/isArray');
 var React = require('react');
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
+React.createClass = createReactClass
+React.PropTypes = PropTypes
 var {
   Animated,
   ScrollView

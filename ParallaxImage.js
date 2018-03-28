@@ -5,6 +5,10 @@
 
 var isEqual = require('lodash/lang/isEqual');
 var React = require('react');
+var PropTypes = require('prop-types');
+var createReactClass = require('create-react-class');
+React.createClass = createReactClass
+React.PropTypes = PropTypes
 var {
   View,
   Image,
