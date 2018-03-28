@@ -18,11 +18,11 @@ var WINDOW_HEIGHT = Dimensions.get('window').height;
 
 var ParallaxImage = React.createClass({
   propTypes: {
-    onPress:        React.PropTypes.func,
-    scrollY:        React.PropTypes.object,
-    parallaxFactor: React.PropTypes.number,
-    imageStyle:     Image.propTypes.style,
-    overlayStyle:   View.propTypes.style,
+//     onPress:        React.PropTypes.func,
+//     scrollY:        React.PropTypes.object,
+//     parallaxFactor: React.PropTypes.number,
+//     imageStyle:     Image.propTypes.style,
+//     overlayStyle:   View.propTypes.style,
   },
 
   getDefaultProps: function() {
@@ -89,9 +89,9 @@ var ParallaxImage = React.createClass({
         {
           translateY:   scrollY.interpolate({
             inputRange:   [offset - height, offset + WINDOW_HEIGHT + height],
-            outputRange:  [-parallaxPadding, parallaxPadding],
-            extrapolate:  'clamp',
+            outputRange:  [-parallaxPadding, parallaxPadding]
           }),
+//           extrapolate:  'clamp',
         },
       ];
     } else {
